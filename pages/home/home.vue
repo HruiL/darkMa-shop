@@ -1,5 +1,9 @@
 <template>
   <view>
+    <!-- 使用自定义的搜索组件 -->
+    <view class="search-box">
+      <my-search @click="gotoSearch"></my-search>
+    </view>
     <!-- 轮播图区域 -->
     <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-dots="true"
       indicator-color="#c1c1c1" indicator-active-color="#f1f1f1" interval="1000" autoplay circular>
@@ -96,13 +100,23 @@
           })
         })
         this.floorList = data.message
-        console.log(this.floorList)
+        // console.log(this.floorList)
       },
+      gotoSearch() {
+        uni.navigateTo({
+          url:"/subpkg/search/search"
+        })
+      }
     }
   }
 </script>
 
 <style lang="scss">
+  .search-box {
+    position: sticky;
+    top:0;
+    z-index:999
+  }
   swiper {
     height: 330rpx;
 
