@@ -1,15 +1,14 @@
 <template>
-  <view class="wrap">
+  <view>
     <!-- 自定义搜索组件 -->
     <my-search @click="gotoSearch"></my-search>
     <view class="scroll-view-container">
       <!-- 左侧滚动视图区域 -->
       <scroll-view class="left-scroll-view" scroll-y="true" :style="{height: wh + 'px'}">
-        <block v-for="(item,index) in cateList" :key="item.cat_id">
-          <view :class="['left-scroll-view-item',index === active ? 'active':''] " @click="activeChanged(index)">
-            {{item.cat_name}}
-          </view>
-        </block>
+        <view class="left-scroll-view-item" :class="{active:active == index}" v-for="(item,index) in cateList"
+          :key="item.cat_id" @click="activeChanged(index)">
+          {{item.cat_name}}
+        </view>
       </scroll-view>
       <!-- 右侧滚动视图区域  -->
       <scroll-view scroll-y="true" class="right-scroll-view" :style="{height:wh + 'px'}" :scroll-top="scrollTop">
@@ -21,7 +20,8 @@
           <!-- 动态渲染三级分类的列表数据 -->
           <view class="cate-lv3-list">
             <!-- 三级分类 item项 -->
-            <view class="cate-lv3-item" v-for="(item3,index3) in item2.children" :key="item3.cat_id" @click="gotoGoodsList(item3)">
+            <view class="cate-lv3-item" v-for="(item3,index3) in item2.children" :key="item3.cat_id"
+              @click="gotoGoodsList(item3)">
               <!-- 图片 -->
               <image :src="item3.cat_icon"></image>
               <!-- 文本 -->
@@ -47,7 +47,7 @@
         // 左侧二级分类列表
         cateLevel2: [],
         // 滚动条距离顶部的距离
-        scrollTop:0
+        scrollTop: 0
       }
     },
     methods: {
@@ -67,17 +67,17 @@
       activeChanged(index) {
         this.active = index
         this.cateLevel2 = this.cateList[index].children
-        this.scrollTop = this.scrollTop === 0 ? 1 : 0 
+        this.scrollTop = this.scrollTop === 0 ? 1 : 0
       },
       // 点击三级分类项跳转到商品列表页
       gotoGoodsList(item3) {
         uni.navigateTo({
-          url:`/subpkg/goods_list/goods_list?cid=${item3.cat_id}`
+          url: `/subpkg/goods_list/goods_list?cid=${item3.cat_id}`
         })
       },
       gotoSearch() {
         uni.navigateTo({
-          url:'/subpkg/search/search'
+          url: '/subpkg/search/search'
         })
       }
     },
@@ -93,41 +93,46 @@
 </script>
 
 <style lang="scss">
-  .wrap {
-    background-color: #fff;
-  }
- // 列表容器
+  // 列表容器
   .scroll-view-container {
     display: flex;
     // 左侧固定宽度，设置px即可
     .left-scroll-view {
       width: 120px;
+
       // 左侧列表项
       .left-scroll-view-item {
-        background-color: #F7F7F7;
+        // background-color: #F7F7F7;
         line-height: 60px;
         text-align: center;
         font-size: 12px;
-        // 左侧高亮激活
-        &.active {
-          background-color: #FFFFFF;
-          position: relative;
-          // 左侧高亮线条
-          &::before {
-            content: ' ';
-            display: block;
-            width: 3px;
-            height: 30px;
-            background-color: #C00000;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-          }
+      }
+
+      // 左侧高亮激活
+      .active {
+        background-color: #FFFFFF;
+        position: relative;
+
+        // 左侧高亮线条
+        &::before {
+          content: ' ';
+          display: block;
+          width: 3px;
+          height: 30px;
+          background-color: #C00000;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
         }
       }
+
+    }
+    .right-scroll-view {
+      background-color: #FFFFFF;
     }
   }
+
   // 二级分类标题
   .cate-lv2-title {
     font-size: 12px;
@@ -135,10 +140,12 @@
     text-align: center;
     padding: 15px 0;
   }
+
   // 三级分类列表
   .cate-lv3-list {
     display: flex;
     flex-wrap: wrap;
+
     // 三级分类列表项
     .cate-lv3-item {
       width: 33.33%;

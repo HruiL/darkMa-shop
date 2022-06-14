@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "@escook/request-miniprogram": "^0.2.1"
-  }
+  },
+  "name": "darkma-shop",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HruiL/darkMa-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HruiL/darkMa-shop/issues"
+  },
+  "homepage": "https://github.com/HruiL/darkMa-shop#readme",
+  "description": ""
 }
