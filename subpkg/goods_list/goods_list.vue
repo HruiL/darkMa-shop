@@ -57,10 +57,10 @@
       }
     },
     onLoad(options) {
+      // console.log(options)
       this.queryObj.query = options.query || ''
       this.queryObj.cid = options.cid || ''
       this.getGoodList()
-  
     },
     // 触底事件
     onReachBottom() {

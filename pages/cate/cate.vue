@@ -35,7 +35,9 @@
 </template>
 
 <script>
+  import badgeMix from '@/mixins/tabbar-badge.js'
   export default {
+    mixins:[badgeMix],
     data() {
       return {
         // 窗口的可用高度 = 屏幕高度 - navigationBar高度 - tabBar高度
@@ -59,10 +61,8 @@
         // 判断数据是否获取失败
         if (data.meta.status !== 200) return uni.$showMsg()
         // 转存数据
-
         this.cateList = data.message
         this.cateLevel2 = data.message[0].children
-        console.log(data)
       },
       activeChanged(index) {
         this.active = index

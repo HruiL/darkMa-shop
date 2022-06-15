@@ -26,7 +26,7 @@
       </view>
       <!-- 运费 -->
       <view class="freight">
-        快递：免运费
+        快递：免运费 -- {{cartArr.length}}
       </view>
       <!-- 商品详情信息 -->
       <rich-text :nodes="goods_info.goods_introduce"></rich-text>
@@ -40,6 +40,11 @@
 </template>
 
 <script>
+  import {
+    mapState,
+    mapMutations,
+    mapGetters
+  } from "vuex"
   export default {
     data() {
       return {
@@ -51,7 +56,7 @@
         }, {
           icon: 'cart',
           text: '购物车',
-          info: 2
+          info: 0
         }],
         buttonGroup: [{
             text: '加入购物车',
@@ -88,24 +93,48 @@
       },
       onClick(e) {
         // console.log('e1',e)
-        if(e.content.text === '购物车') {
+        if (e.content.text === '购物车') {
           uni.switchTab({
-            url:"/pages/cart/cart"
+            url: "/pages/cart/cart"
           })
         }
-        // uni.showToast({
-        //   title: `点击${e.content.text}`,
-        //   icon: 'none'
-        // })
       },
+      ...mapMutations('cart', ['addToCart']),
       buttonClick(e) {
-        console.log('e2',e)
+        // console.log('e2', e)
+        if (e.content.text === '加入购物车') {
+          const goods = {
+            goods_id: this.goods_info.goods_id,
+            goods_name: this.goods_info.goods_name,
+            goods_price: this.goods_info.goods_price,
+            goods_count: 1,
+            goods_small_logo: this.goods_info.goods_small_logo,
+            goods_state: true
+          }
+          this.addToCart(goods)
+        }
         // this.options[2].info++
       }
+    },
+    computed: {
+      ...mapState('cart', ['cartArr']),
+      ...mapGetters('cart', ['total'])
     },
     onLoad(options) {
       const goods_id = options.goods_id
       this.getGoodsDetail(goods_id)
+    },
+    watch: {
+      total: {
+        handler(newVal) {
+          const findResult = this.options.find((item) => item.text === '购物车')
+          if (findResult) {
+            findResult.info = newVal
+          }
+        },
+         // 该回调将会在侦听开始之后被立即调用
+        immediate:true
+      }
     }
   }
 </script>

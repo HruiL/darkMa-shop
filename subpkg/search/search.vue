@@ -25,7 +25,6 @@
         <uni-tag :text="item" v-for="(item,i) in historys" :key="i" @click="gotoGoodsList(item)"></uni-tag>
       </view>
     </view>
-    <uni-tag text="标签"></uni-tag>
   </view>
 </template>
 
@@ -100,7 +99,6 @@
     },
     onLoad() {
       this.historyList = JSON.parse(uni.getStorageSync('kw') || '[]')
-      console.log(uni.getStorageSync('kw'))
     }
   }
 </script>
